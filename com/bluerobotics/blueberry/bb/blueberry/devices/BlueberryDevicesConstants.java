@@ -151,6 +151,345 @@ public interface BlueberryDevicesConstants {
 	public static final String WHOS_THERE_MESSAGE_TOPIC = "blueberry/devices/{device_type}/{nid}/whos-there";
 
 
+	public enum ClockSpecBbEnum {
+		SPI_CPOL_0_CPHA_0((byte)0x0000),
+		SPI_CPOL_0_CPHA_1((byte)0x0001),
+		SPI_CPOL_1_CPHA_0((byte)0x0002),
+		SPI_CPOL_1_CPHA_1((byte)0x0003),
+		;
+		private static EnumLookup<ClockSpecBbEnum> m_lookup = new EnumLookup<ClockSpecBbEnum>();
+		private int value;
+		private ClockSpecBbEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static ClockSpecBbEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(ClockSpecBbEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	public enum SpiDevBbEnum {
+		SPINULL_DEV((byte)0x00ff),
+		SPI1_DEV((byte)0x0000),
+		SPI2_DEV((byte)0x0001),
+		SPI3_DEV((byte)0x0002),
+		SPI4_DEV((byte)0x0003),
+		SPI5_DEV((byte)0x0004),
+		;
+		private static EnumLookup<SpiDevBbEnum> m_lookup = new EnumLookup<SpiDevBbEnum>();
+		private int value;
+		private SpiDevBbEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static SpiDevBbEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(SpiDevBbEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	public enum BaudDivBbEnum {
+		SPI_DIV_2((byte)0x0000),
+		SPI_DIV_4((byte)0x0001),
+		SPI_DIV_8((byte)0x0002),
+		SPI_DIV_16((byte)0x0003),
+		SPI_DIV_32((byte)0x0004),
+		SPI_DIV_64((byte)0x0005),
+		SPI_DIV_128((byte)0x0006),
+		SPI_DIV_256((byte)0x0007),
+		;
+		private static EnumLookup<BaudDivBbEnum> m_lookup = new EnumLookup<BaudDivBbEnum>();
+		private int value;
+		private BaudDivBbEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static BaudDivBbEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(BaudDivBbEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	public enum I2CDevBbEnum {
+		I2CNULL_DEV((byte)0x00ff),
+		I2C1_DEV((byte)0x0000),
+		I2C2_DEV((byte)0x0001),
+		I2C3_DEV((byte)0x0002),
+		I2C4_DEV((byte)0x0003),
+		;
+		private static EnumLookup<I2CDevBbEnum> m_lookup = new EnumLookup<I2CDevBbEnum>();
+		private int value;
+		private I2CDevBbEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static I2CDevBbEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(I2CDevBbEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	public enum FlashProgramStateEnum {
+		DO_NOTHING_REQUEST((byte)0x0000),
+		UPLOAD_REQUEST((byte)0x0001),
+		RUN_REQUEST((byte)0x0002),
+		OVERWRITE_REQUEST((byte)0x0003),
+		CLEAR_REQUEST((byte)0x0004),
+		STOP_REQUEST((byte)0x0005),
+		IMAGE_GOOD_RESPONSE((byte)0x0006),
+		IMAGE_BAD_RESPONSE((byte)0x0007),
+		IMAGE_CLEAR_RESPONSE((byte)0x0008),
+		UPLOADING_RESPONSE((byte)0x0009),
+		UPLOAD_BAD_RESPONSE((byte)0x000a),
+		WILL_RUN_RESPONSE((byte)0x000b),
+		RUNNING_RESPONSE((byte)0x000c),
+		OVERWRITING_RESPONSE((byte)0x000d),
+		CLEARING_RESPONSE((byte)0x000e),
+		;
+		private static EnumLookup<FlashProgramStateEnum> m_lookup = new EnumLookup<FlashProgramStateEnum>();
+		private int value;
+		private FlashProgramStateEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static FlashProgramStateEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(FlashProgramStateEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	/**
+	 * An enum for conveying the type of data in an A-scan
+	 */
+	public enum AScanTypeEnum {
+		UNDEFINED((byte)0x0000),
+		RAW_RF((byte)0x0001),
+		IQ_DEMOD((byte)0x0002),
+		RECTIFIER_DEMOD((byte)0x0003),
+		MIN_MAX((byte)0x0004),
+		RAW_CURRENT((byte)0x0005),
+		;
+		private static EnumLookup<AScanTypeEnum> m_lookup = new EnumLookup<AScanTypeEnum>();
+		private int value;
+		private AScanTypeEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static AScanTypeEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(AScanTypeEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	public enum TriggerPosEnum {
+		FIRST_QUARTER_TRIG_POS((byte)0x0000),
+		SECOND_QUARTER_TRIG_POS((byte)0x0001),
+		THIRD_QUARTER_TRIG_POS((byte)0x0002),
+		FOURTH_QUARTER_TRIG_POS((byte)0x0003),
+		;
+		private static EnumLookup<TriggerPosEnum> m_lookup = new EnumLookup<TriggerPosEnum>();
+		private int value;
+		private TriggerPosEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static TriggerPosEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(TriggerPosEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	/**
+	 * an enum to convey PCB type
+	 */
+	public enum HwTypeEnum {
+		UNDEFINED((short)0xffff),
+		LEGACY((short)0x0000),
+		BLUE_SERVO((short)0x0001),
+		LUMEN((short)0x0002),
+		NUCLEO((short)0x0003),
+		BLUE_ESC((short)0x0004),
+		GIGABOARD((short)0x0005),
+		BLUE_BRIDGE((short)0x0006),
+		POGOBRAIN((short)0x0007),
+		;
+		private static EnumLookup<HwTypeEnum> m_lookup = new EnumLookup<HwTypeEnum>();
+		private int value;
+		private HwTypeEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static HwTypeEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(HwTypeEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	public enum McuTypeEnum {
+		UNDEFINED((byte)0x00ff),
+		STM32F446((byte)0x0001),
+		STM32H563((byte)0x0002),
+		STM32H573((byte)0x0003),
+		STM32G071((byte)0x0004),
+		;
+		private static EnumLookup<McuTypeEnum> m_lookup = new EnumLookup<McuTypeEnum>();
+		private int value;
+		private McuTypeEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static McuTypeEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(McuTypeEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	public enum GpioDirEnum {
+		INPUT((byte)0x0000),
+		OUTPUT((byte)0x0001),
+		ANALOG((byte)0x0002),
+		OUTPUT_LOW((byte)0x0003),
+		OUTPUT_HIGH((byte)0x0004),
+		AF0((byte)0x0005),
+		AF1((byte)0x0006),
+		AF2((byte)0x0007),
+		AF3((byte)0x0008),
+		AF4((byte)0x0009),
+		AF5((byte)0x000a),
+		AF6((byte)0x000b),
+		AF7((byte)0x000c),
+		AF8((byte)0x000d),
+		AF9((byte)0x000e),
+		AF10((byte)0x000f),
+		AF11((byte)0x0010),
+		AF12((byte)0x0011),
+		AF13((byte)0x0012),
+		AF14((byte)0x0013),
+		AF15((byte)0x0014),
+		;
+		private static EnumLookup<GpioDirEnum> m_lookup = new EnumLookup<GpioDirEnum>();
+		private int value;
+		private GpioDirEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static GpioDirEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(GpioDirEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	/**
+	 * A selection of units for the setpoint.
+	 * Mostly just to select between angular units and units that do not loop
+	 * For now this is not inteded to stray beyond SI
+	 */
+	public enum UnitEnum {
+		METRES((byte)0x0000),
+		RADIANS((byte)0x0001),
+		METRES_PER_SECOND((byte)0x0003),
+		RADIANS_PER_SECOND((byte)0x0004),
+		DEGREES((byte)0x0005),
+		METRES_PER_SECOND_SQUARED((byte)0x0006),
+		RADIANS_PER_SECOND_SQUARED((byte)0x0007),
+		NEWTONS((byte)0x0008),
+		NEWTON_METRES((byte)0x0009),
+		;
+		private static EnumLookup<UnitEnum> m_lookup = new EnumLookup<UnitEnum>();
+		private int value;
+		private UnitEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static UnitEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(UnitEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	/**
+	 * Defines where the feedback controller should get its input from
+	 */
+	public enum PlumbingTypeEnum {
+		UNCONFIGURED((byte)0x0000),
+		OPEN_LOOP((byte)0x0001),
+		TX_APP_DATA((byte)0x0002),
+		RX_APP_DATA((byte)0x0003),
+		STREAM((byte)0x0004),
+		;
+		private static EnumLookup<PlumbingTypeEnum> m_lookup = new EnumLookup<PlumbingTypeEnum>();
+		private int value;
+		private PlumbingTypeEnum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static PlumbingTypeEnum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(PlumbingTypeEnum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
 	/**
 	 * an enum to specify a port pin
 	 * this is constructed with the top nibble representing the port and the bottom nibble the pin number
@@ -313,343 +652,6 @@ public interface BlueberryDevicesConstants {
 		public static PortPinEnum lookup(int i){
 			if(m_lookup.size() == 0) {
 				for(PortPinEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	/**
-	 * A selection of units for the setpoint.
-	 * Mostly just to select between angular units and units that do not loop
-	 * For now this is not inteded to stray beyond SI
-	 */
-	public enum UnitEnum {
-		METRES((byte)0x0000),
-		RADIANS((byte)0x0001),
-		METRES_PER_SECOND((byte)0x0003),
-		RADIANS_PER_SECOND((byte)0x0004),
-		DEGREES((byte)0x0005),
-		METRES_PER_SECOND_SQUARED((byte)0x0006),
-		RADIANS_PER_SECOND_SQUARED((byte)0x0007),
-		NEWTONS((byte)0x0008),
-		NEWTON_METRES((byte)0x0009),
-		;
-		private static EnumLookup<UnitEnum> m_lookup = new EnumLookup<UnitEnum>();
-		private int value;
-		private UnitEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static UnitEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(UnitEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	/**
-	 * Defines where the feedback controller should get its input from
-	 */
-	public enum PlumbingTypeEnum {
-		UNCONFIGURED((byte)0x0000),
-		OPEN_LOOP((byte)0x0001),
-		TX_APP_DATA((byte)0x0002),
-		RX_APP_DATA((byte)0x0003),
-		STREAM((byte)0x0004),
-		;
-		private static EnumLookup<PlumbingTypeEnum> m_lookup = new EnumLookup<PlumbingTypeEnum>();
-		private int value;
-		private PlumbingTypeEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static PlumbingTypeEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(PlumbingTypeEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	public enum FlashProgramStateEnum {
-		DO_NOTHING_REQUEST((byte)0x0000),
-		UPLOAD_REQUEST((byte)0x0001),
-		RUN_REQUEST((byte)0x0002),
-		OVERWRITE_REQUEST((byte)0x0003),
-		CLEAR_REQUEST((byte)0x0004),
-		STOP_REQUEST((byte)0x0005),
-		IMAGE_GOOD_RESPONSE((byte)0x0006),
-		IMAGE_BAD_RESPONSE((byte)0x0007),
-		IMAGE_CLEAR_RESPONSE((byte)0x0008),
-		UPLOADING_RESPONSE((byte)0x0009),
-		UPLOAD_BAD_RESPONSE((byte)0x000a),
-		WILL_RUN_RESPONSE((byte)0x000b),
-		RUNNING_RESPONSE((byte)0x000c),
-		OVERWRITING_RESPONSE((byte)0x000d),
-		CLEARING_RESPONSE((byte)0x000e),
-		;
-		private static EnumLookup<FlashProgramStateEnum> m_lookup = new EnumLookup<FlashProgramStateEnum>();
-		private int value;
-		private FlashProgramStateEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static FlashProgramStateEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(FlashProgramStateEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	public enum GpioDirEnum {
-		INPUT((byte)0x0000),
-		OUTPUT((byte)0x0001),
-		ANALOG((byte)0x0002),
-		OUTPUT_LOW((byte)0x0003),
-		OUTPUT_HIGH((byte)0x0004),
-		AF0((byte)0x0005),
-		AF1((byte)0x0006),
-		AF2((byte)0x0007),
-		AF3((byte)0x0008),
-		AF4((byte)0x0009),
-		AF5((byte)0x000a),
-		AF6((byte)0x000b),
-		AF7((byte)0x000c),
-		AF8((byte)0x000d),
-		AF9((byte)0x000e),
-		AF10((byte)0x000f),
-		AF11((byte)0x0010),
-		AF12((byte)0x0011),
-		AF13((byte)0x0012),
-		AF14((byte)0x0013),
-		AF15((byte)0x0014),
-		;
-		private static EnumLookup<GpioDirEnum> m_lookup = new EnumLookup<GpioDirEnum>();
-		private int value;
-		private GpioDirEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static GpioDirEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(GpioDirEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	public enum I2CDevBbEnum {
-		I2CNULL_DEV((byte)0x00ff),
-		I2C1_DEV((byte)0x0000),
-		I2C2_DEV((byte)0x0001),
-		I2C3_DEV((byte)0x0002),
-		I2C4_DEV((byte)0x0003),
-		;
-		private static EnumLookup<I2CDevBbEnum> m_lookup = new EnumLookup<I2CDevBbEnum>();
-		private int value;
-		private I2CDevBbEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static I2CDevBbEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(I2CDevBbEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	public enum TriggerPosEnum {
-		FIRST_QUARTER_TRIG_POS((byte)0x0000),
-		SECOND_QUARTER_TRIG_POS((byte)0x0001),
-		THIRD_QUARTER_TRIG_POS((byte)0x0002),
-		FOURTH_QUARTER_TRIG_POS((byte)0x0003),
-		;
-		private static EnumLookup<TriggerPosEnum> m_lookup = new EnumLookup<TriggerPosEnum>();
-		private int value;
-		private TriggerPosEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static TriggerPosEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(TriggerPosEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	/**
-	 * An enum for conveying the type of data in an A-scan
-	 */
-	public enum AScanTypeEnum {
-		UNDEFINED((byte)0x0000),
-		RAW_RF((byte)0x0001),
-		IQ_DEMOD((byte)0x0002),
-		RECTIFIER_DEMOD((byte)0x0003),
-		;
-		private static EnumLookup<AScanTypeEnum> m_lookup = new EnumLookup<AScanTypeEnum>();
-		private int value;
-		private AScanTypeEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static AScanTypeEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(AScanTypeEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	public enum ClockSpecBbEnum {
-		SPI_CPOL_0_CPHA_0((byte)0x0000),
-		SPI_CPOL_0_CPHA_1((byte)0x0001),
-		SPI_CPOL_1_CPHA_0((byte)0x0002),
-		SPI_CPOL_1_CPHA_1((byte)0x0003),
-		;
-		private static EnumLookup<ClockSpecBbEnum> m_lookup = new EnumLookup<ClockSpecBbEnum>();
-		private int value;
-		private ClockSpecBbEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static ClockSpecBbEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(ClockSpecBbEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	public enum SpiDevBbEnum {
-		SPINULL_DEV((byte)0x00ff),
-		SPI1_DEV((byte)0x0000),
-		SPI2_DEV((byte)0x0001),
-		SPI3_DEV((byte)0x0002),
-		SPI4_DEV((byte)0x0003),
-		SPI5_DEV((byte)0x0004),
-		;
-		private static EnumLookup<SpiDevBbEnum> m_lookup = new EnumLookup<SpiDevBbEnum>();
-		private int value;
-		private SpiDevBbEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static SpiDevBbEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(SpiDevBbEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	public enum BaudDivBbEnum {
-		SPI_DIV_2((byte)0x0000),
-		SPI_DIV_4((byte)0x0001),
-		SPI_DIV_8((byte)0x0002),
-		SPI_DIV_16((byte)0x0003),
-		SPI_DIV_32((byte)0x0004),
-		SPI_DIV_64((byte)0x0005),
-		SPI_DIV_128((byte)0x0006),
-		SPI_DIV_256((byte)0x0007),
-		;
-		private static EnumLookup<BaudDivBbEnum> m_lookup = new EnumLookup<BaudDivBbEnum>();
-		private int value;
-		private BaudDivBbEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static BaudDivBbEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(BaudDivBbEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	/**
-	 * an enum to convey PCB type
-	 */
-	public enum HwTypeEnum {
-		UNDEFINED((short)0xffff),
-		LEGACY((short)0x0000),
-		BLUE_SERVO((short)0x0001),
-		LUMEN((short)0x0002),
-		NUCLEO((short)0x0003),
-		BLUE_ESC((short)0x0004),
-		GIGABOARD((short)0x0005),
-		BLUE_BRIDGE((short)0x0006),
-		POGOBRAIN((short)0x0007),
-		;
-		private static EnumLookup<HwTypeEnum> m_lookup = new EnumLookup<HwTypeEnum>();
-		private int value;
-		private HwTypeEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static HwTypeEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(HwTypeEnum e : values()) {
-					m_lookup.add(e.getValue(), e);
-				}
-			}
-			return m_lookup.lookup(i);
-		}
-	}
-	public enum McuTypeEnum {
-		UNDEFINED((byte)0x00ff),
-		STM32F446((byte)0x0001),
-		STM32H563((byte)0x0002),
-		STM32H573((byte)0x0003),
-		STM32G071((byte)0x0004),
-		;
-		private static EnumLookup<McuTypeEnum> m_lookup = new EnumLookup<McuTypeEnum>();
-		private int value;
-		private McuTypeEnum(int v){
-			value = v;
-		}
-		public int getValue(){
-			return value;
-		}
-		public static McuTypeEnum lookup(int i){
-			if(m_lookup.size() == 0) {
-				for(McuTypeEnum e : values()) {
 					m_lookup.add(e.getValue(), e);
 				}
 			}
