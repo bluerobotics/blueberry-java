@@ -676,6 +676,7 @@ public interface BlueberryDevicesConstants {
 		GIGABOARD((short)0x0005),
 		BLUE_BRIDGE((short)0x0006),
 		POGOBRAIN((short)0x0007),
+		PING_DEV_KIT((short)0x0008),
 		;
 		private static EnumLookup<HwTypeEnum> m_lookup = new EnumLookup<HwTypeEnum>();
 		private int value;
