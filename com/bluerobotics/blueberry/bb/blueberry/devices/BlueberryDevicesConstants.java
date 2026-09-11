@@ -98,6 +98,14 @@ public interface BlueberryDevicesConstants {
 	 */
 	public static final int SPI_TRANSACTION_MESSAGE_KEY = 0x424425ed;
 	/**
+	 * A message to pass 16-bit data from the tcs3400 colour sensor into blueberry studio
+	 */
+	public static final int TCS_3400_DATA_16_MESSAGE_KEY = 0x42446efe;
+	/**
+	 * A message to pass 8-bit data from the tcs3400 colour sensor into blueberry studio
+	 */
+	public static final int TCS_3400_DATA_8_MESSAGE_KEY = 0x4244c342;
+	/**
 	 * A message to convey config parameters for Thermistors
 	 */
 	public static final int THERMISTOR_CONFIG_MESSAGE_KEY = 0x4244aae3;
@@ -143,6 +151,8 @@ public interface BlueberryDevicesConstants {
 	public static final String OSCOPE_DATA_MESSAGE_TOPIC = "blueberry/devices/{device_type}/{nid}/oscope-data";
 	public static final String SONAR_A_SCAN_MESSAGE_TOPIC = "blueberry/devices/{device_type}/{nid}/sonar-a-scan";
 	public static final String SPI_TRANSACTION_MESSAGE_TOPIC = "blueberry/devices/{device_type}/{nid}/spi-transaction";
+	public static final String TCS_3400_DATA_16_MESSAGE_TOPIC = "blueberry/devices/{device_type}/{nid}/tcs3400-data16";
+	public static final String TCS_3400_DATA_8_MESSAGE_TOPIC = "blueberry/devices/{device_type}/{nid}/tcs3400-data8";
 	public static final String THERMISTOR_CONFIG_MESSAGE_TOPIC = "blueberry/devices/{device_type}/{nid}/thermistor-config";
 	public static final String THERMISTOR_DATA_MESSAGE_TOPIC = "blueberry/devices/{device_type}/{nid}/thermistor-data";
 	public static final String TIME_MESSAGE_TOPIC = "blueberry/devices/{device_type}/{nid}/time";
@@ -508,6 +518,8 @@ public interface BlueberryDevicesConstants {
 		RAW_RF((byte)0x0001),
 		IQ_DEMOD((byte)0x0002),
 		RECTIFIER_DEMOD((byte)0x0003),
+		MIN_MAX((byte)0x0004),
+		RAW_CURRENT((byte)0x0005),
 		;
 		private static EnumLookup<AScanTypeEnum> m_lookup = new EnumLookup<AScanTypeEnum>();
 		private int value;
@@ -602,6 +614,56 @@ public interface BlueberryDevicesConstants {
 		}
 	}
 	/**
+	 * An enum for defining the available 8-bit parameters of the tcs3400
+	 */
+	public enum Parameter8Enum {
+		REVID((byte)0x0000),
+		ID((byte)0x0001),
+		;
+		private static EnumLookup<Parameter8Enum> m_lookup = new EnumLookup<Parameter8Enum>();
+		private int value;
+		private Parameter8Enum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static Parameter8Enum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(Parameter8Enum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	/**
+	 * An enum for defining the available 16-bit parameters of the tcs3400
+	 */
+	public enum Parameter16Enum {
+		CLEAR((byte)0x0000),
+		RED((byte)0x0001),
+		GREEN((byte)0x0002),
+		BLUE((byte)0x0003),
+		;
+		private static EnumLookup<Parameter16Enum> m_lookup = new EnumLookup<Parameter16Enum>();
+		private int value;
+		private Parameter16Enum(int v){
+			value = v;
+		}
+		public int getValue(){
+			return value;
+		}
+		public static Parameter16Enum lookup(int i){
+			if(m_lookup.size() == 0) {
+				for(Parameter16Enum e : values()) {
+					m_lookup.add(e.getValue(), e);
+				}
+			}
+			return m_lookup.lookup(i);
+		}
+	}
+	/**
 	 * an enum to convey PCB type
 	 */
 	public enum HwTypeEnum {
@@ -614,6 +676,7 @@ public interface BlueberryDevicesConstants {
 		GIGABOARD((short)0x0005),
 		BLUE_BRIDGE((short)0x0006),
 		POGOBRAIN((short)0x0007),
+		PING_DEV_KIT((short)0x0008),
 		;
 		private static EnumLookup<HwTypeEnum> m_lookup = new EnumLookup<HwTypeEnum>();
 		private int value;

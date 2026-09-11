@@ -36,12 +36,14 @@ import com.bluerobotics.blueberry.transcoder.java.BlueberryBuffer;
  * A class to read and write a VersionMessage
  */
 public class VersionMessage extends BlueberryMessage implements BlueberryDevicesConstants {
-	private static final int VERSION_MESSAGE_MAX_ORDINAL = 6;
+	private static final int VERSION_MESSAGE_MAX_ORDINAL = 8;
 
-	private static final int VERSION_MESSAGE_LENGTH = 16;
+	private static final int VERSION_MESSAGE_LENGTH = 24;
 
 	//These values are used to index into this message to access the various fields.
 	private static final int VERSION_MESSAGE_FIRMWARE_VERSION_INDEX = 8;
+	private static final int VERSION_MESSAGE_GIT_DIRTY_INDEX = 20;
+	private static final int VERSION_MESSAGE_GIT_HASH_INDEX = 16;
 	private static final int VERSION_MESSAGE_HARDWARE_REV_INDEX = 12;
 	private static final int VERSION_MESSAGE_HARDWARE_TYPE_INDEX = 14;
 	private static final int VERSION_MESSAGE_MCU_TYPE_INDEX = 13;
@@ -49,11 +51,14 @@ public class VersionMessage extends BlueberryMessage implements BlueberryDevices
 	//The following values represent the ordinals of the fields of this message.
 	//This corresponds to the order that they were defined in the schema
 	private static final int VERSION_MESSAGE_FIRMWARE_VERSION_ORDINAL = 3;
+	private static final int VERSION_MESSAGE_GIT_DIRTY_ORDINAL = 8;
+	private static final int VERSION_MESSAGE_GIT_HASH_ORDINAL = 7;
 	private static final int VERSION_MESSAGE_HARDWARE_REV_ORDINAL = 4;
 	private static final int VERSION_MESSAGE_HARDWARE_TYPE_ORDINAL = 5;
 	private static final int VERSION_MESSAGE_MCU_TYPE_ORDINAL = 6;
 
 	//Bit Nums
+	private static final int VERSION_MESSAGE_GIT_DIRTY_BIT_NUM = 0;
 	/**
 	 * A constructor to create a VersionMessage.
 	 * This does the bare minimum: it just wraps a buffer in a message.
@@ -73,14 +78,18 @@ public class VersionMessage extends BlueberryMessage implements BlueberryDevices
 	 * @param hardwareRev
 	 * @param hardwareType - an enum to convey PCB type
 	 * @param mcuType
+	 * @param gitHash - the most significant 32 bits of the git hash of the current firmware repo
+	 * @param gitDirty - true indicates that files have been changed since the last commit, false means everything is clean
 	 */
-	public static VersionMessage make(BlueberryBuffer buf, long firmwareVersion, int hardwareRev, HwTypeEnum hardwareType, McuTypeEnum mcuType) {
+	public static VersionMessage make(BlueberryBuffer buf, long firmwareVersion, int hardwareRev, HwTypeEnum hardwareType, McuTypeEnum mcuType, long gitHash, boolean gitDirty) {
 		VersionMessage msg = new VersionMessage(buf);
 		msg.setupHeader(VERSION_MESSAGE_KEY, VERSION_MESSAGE_MAX_ORDINAL, VERSION_MESSAGE_LENGTH);
 		msg.m_buf.writeUint32(VERSION_MESSAGE_FIRMWARE_VERSION_INDEX, firmwareVersion);
 		msg.m_buf.writeUint8(VERSION_MESSAGE_HARDWARE_REV_INDEX, hardwareRev);
 		msg.m_buf.writeUint16(VERSION_MESSAGE_HARDWARE_TYPE_INDEX, hardwareType.getValue());
 		msg.m_buf.writeUint8(VERSION_MESSAGE_MCU_TYPE_INDEX, mcuType.getValue());
+		msg.m_buf.writeUint32(VERSION_MESSAGE_GIT_HASH_INDEX, gitHash);
+		msg.m_buf.writeBit(VERSION_MESSAGE_GIT_DIRTY_INDEX, VERSION_MESSAGE_GIT_DIRTY_BIT_NUM, gitDirty);
 		return msg;
 	}
 	/**
@@ -169,5 +178,37 @@ public class VersionMessage extends BlueberryMessage implements BlueberryDevices
 	 */
 	boolean isMcuTypePresent(){
 		return VERSION_MESSAGE_MCU_TYPE_ORDINAL <= (getMaxOrdinal());
+	}
+	/**
+	 * A getter for the gitHash field
+	 * the most significant 32 bits of the git hash of the current firmware repo
+	 */
+	public long getGitHash(){
+		int i = 0;
+		i = i + VERSION_MESSAGE_GIT_HASH_INDEX;
+		return m_buf.readUint32(i );
+	}
+	/**
+	 * Tests if the current message containts the gitHash field
+	 * the most significant 32 bits of the git hash of the current firmware repo
+	 */
+	boolean isGitHashPresent(){
+		return VERSION_MESSAGE_GIT_HASH_ORDINAL <= (getMaxOrdinal());
+	}
+	/**
+	 * A getter for the gitDirty field
+	 * true indicates that files have been changed since the last commit, false means everything is clean
+	 */
+	public boolean isGitDirty(){
+		int i = 0;
+		i = i + VERSION_MESSAGE_GIT_DIRTY_INDEX;
+		return m_buf.readBit(i , VERSION_MESSAGE_GIT_DIRTY_BIT_NUM);
+	}
+	/**
+	 * Tests if the current message containts the gitDirty field
+	 * true indicates that files have been changed since the last commit, false means everything is clean
+	 */
+	boolean isGitDirtyPresent(){
+		return VERSION_MESSAGE_GIT_DIRTY_ORDINAL <= (getMaxOrdinal());
 	}
 }
